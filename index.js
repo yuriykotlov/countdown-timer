@@ -18,7 +18,6 @@ let errorWord = document.getElementById("word")
 let errorMessageField = document.getElementById("sentence")
 
 function countDownFn(){
-    console.log("ok")
     let now = new Date();
     let timeSpan = eventDay - now;
 
@@ -26,12 +25,13 @@ function countDownFn(){
         console.log("No date entered yet")
     }
     else if (timeSpan <= 0) {
-        console.log("Today is the event day");
+        console.log("The desired day has been reached!");
         dayField.innerHTML = "0";
         hourField.innerHTML = "0";
         minuteField.innerHTML = "0";
         secondField.innerHTML = "0";
 
+        DisplaySuccess()
         clearInterval(interval);
         return;
     }
@@ -51,7 +51,7 @@ function countDownFn(){
  }
 
  function SetupInterval(){
-    console.log("setting up interval")
+    console.log("Setting up interval")
     clearInterval(interval)
     interval = setInterval(countDownFn, second);
  }
@@ -72,7 +72,8 @@ function countDownFn(){
         DisplayError("Entered month (" + month + ") is over 12")
         return;
     }
-    else{
+    else if(month.slice(0, 1) == "0"){
+        console.log("month has a zero in it")
         // When the input has a zero before a number it just doesn't work
         switch(month){
             case "01":
@@ -102,6 +103,11 @@ function countDownFn(){
             case "09":
                 month = "9"
                 break
+            default:
+                // Month inputted is 0 or 00
+                DisplayError("Month entered (" + month + ") is invalid");
+                return;
+                break
         }
     }
 
@@ -112,16 +118,20 @@ function countDownFn(){
     }
     else if(day == 31){
         console.log("31 day")
-        for(i = 0; i < oddMonths.length; i++){
-            console.log("checking month " + oddMonths[i])
-            if(month == oddMonths[i]){
+        // Check if the month chosen is one that has 31 days
+        for(i = 0; i <= oddMonths.length; i++){
+            console.log("using month " + month + ", checking month " + oddMonths[i])
+
+            if(i == oddMonths.length - 1){
+                console.log("Month is not part of oddMonths")
+                canStartCountdown = false;
+                DisplayError("Month " + month + " does not have 31 days");
+                return;
+            }
+            else if(month == oddMonths[i]){
                 console.log("month has 31 days");
                 canStartCountdown = true;
-            }
-            else if(i == oddMonths.length){
-                canStartCountdown = false;
-                DisplayError("Month " + month + " does not have 31 days, resubmit with a valid month");
-                return;
+                break;
             }
             else{
                 i++;
@@ -139,15 +149,27 @@ function countDownFn(){
     }
  }
 
- // I'm pretty sure you can just toggle hidden and it
- // would work, but for some reason it doesn't
  function DisplayError(message){
+    console.log("ERROR: " + message)
+    // Red color
+    errorWord.style.color = "#ff0000"
+    errorMessageField.style.color = "#000";
     errorMessageField.innerHTML = message;
-    errorMessageField.classList.toggle("transparent");
-    errorWord.classList.toggle("transparent");
+    errorWord.innerHTML = "Error:";
     setTimeout(()=>{
-        errorMessageField.classList.toggle("transparent");
-        errorWord.classList.toggle("transparent");
-        errorMessageField.innerHTML = "";
+        errorMessageField.style.color = "transparent";
+        errorWord.style.color = "transparent";
      }, 7000);
+ }
+
+ function DisplaySuccess(){
+    // Blue color
+    errorWord.style.color = "#0080ff"
+    errorMessageField.style.color = "#000";
+    errorMessageField.innerHTML = "The desired date has been reached!";
+    errorWord.innerHTML = "Success:"
+    setTimeout(()=>{
+        errorMessageField.style.color = "transparent";
+        errorWord.style.color = "transparent";
+     }, 10000);
  }

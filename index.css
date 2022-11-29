@@ -20,7 +20,7 @@
     transform: translateX(-50%) translateY(-50%);
 }
 
-#error-message-container{
+#notification-message-container{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,22 +28,17 @@
     font-size: 20px;
 }
 
-.error-word{
-    color: #ff0000;
+.notification-word{
     font-weight: 600;
     font-size: 25px;
     margin-right: 10px;
+    text-transform: uppercase;
 }
 
-.error-message{
+.notification-message{
     color: #000;
     font-weight: 600;
 }
-
-.transparent{
-    color: transparent;
-}
-
 .date-countdown{
     display: flex;
     flex-direction: row;
