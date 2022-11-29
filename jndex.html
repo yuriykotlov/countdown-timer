@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="jndex.css">
+</head>
+<body>
+    <div class="container">
+        <div class="date-countdown">
+            <h2 id="day">0</h2>
+            <p>:</p>
+            <h2 id="hour">0</h2>
+            <p>:</p>
+            <h2 id="minute">0</h2>
+            <p>:</p>
+            <h2 id="second">0</h2>
+        </div>
+        <div class="enter-date">
+            <div class="date-input-fields">
+                <input type="text" id="input-day" class="input-date" placeholder="dd" maxlength="2">
+                <p class="date-distinguisher">/</p>
+                <input type="text" id="input-month" class="input-date" placeholder="mm" maxlength="2">
+                <p class="date-distinguisher">/</p>
+                <input type="text" id="input-year" class="input-date" placeholder="yyyy" maxlength="4">
+            </div>
+            <input type="submit" id="submit" onclick="ProcessNewDate()">
+        </div>
+        <div id="error-message-container">
+            <span id="word" class="error-word transparent">Error:</span><h3 id="sentence" class="error-message transparent">something happened</h3>
+        </div>
+    </div>
+    <script src="jndex.js"></script>
+</body>
+</html>
